@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Optimización de Bauxita</title>
+</head>
+<body>
+    <h1>Modelo de Optimización - Bauxita</h1>
+
+    <form method="POST">
+        {% for planta in plantas %}
+            <label>
+                <input type="checkbox" name="{{ planta }}" value="1">
+                Abrir planta {{ planta }}
+            </label><br>
+        {% endfor %}
+        <br>
+        <button type="submit">Ejecutar Modelo</button>
+    </form>
+
+    {% if resultado %}
+        <h2>Resultado:</h2>
+        <p><strong>Costo total mínimo:</strong> ${{ resultado.costo_total }}</p>
+
+        <h3>Plantas abiertas:</h3>
+        <ul>
+            {% for planta, estado in resultado.plantas.items() %}
+                <li>{{ planta }}: {{ estado }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Flujo de bauxita:</h3>
+        <ul>
+            {% for flujo in resultado.x %}
+                <li>{{ flujo }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Flujo de alúmina:</h3>
+        <ul>
+            {% for flujo in resultado.y %}
+                <li>{{ flujo }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
